@@ -12,9 +12,9 @@ class Cart extends Component
 
     public $total;
 
-    protected $listeners = ['echo:cart,UpdatedCart' => '$refresh'];
+    protected $listeners = ['echo:cart,UpdatedCart' => '$refresh','echo:cart,UpdatedCart'=>'update'];
 
-    public function hydrate()
+    public function update()
     {
         $this->total = $this->getTotal();
     }
@@ -44,6 +44,7 @@ class Cart extends Component
             $pivot->save();
         } else if($pivot->quantity == 1) {
             $this->removeQuantity($product_id);
+
             event(new UpdatedCart());
         }
     }
