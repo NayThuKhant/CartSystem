@@ -12,12 +12,8 @@ class Cart extends Component
 
     public $total;
 
-    protected $listeners = ['echo:cart,UpdatedCart' => '$refresh','echo:cart,UpdatedCart'=>'update'];
+    protected $listeners = ['echo:cart,UpdatedCart' => '$refresh'];
 
-    public function update()
-    {
-        $this->total = $this->getTotal();
-    }
     public function mount()
     {
         $this->total = $this->getTotal();
@@ -71,6 +67,8 @@ class Cart extends Component
 
     public function render()
     {
+
+        $this->total=$this->getTotal();
         $products = Auth::user()->cart->products;
         return view('livewire.cart', [
             'products' => Auth::user()->cart->products,
