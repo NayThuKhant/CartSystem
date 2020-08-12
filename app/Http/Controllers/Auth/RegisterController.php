@@ -72,7 +72,8 @@ class RegisterController extends Controller
         ]);
 
         $cart = new Cart();
-        return $user->cart()->save($cart);
+        $user->cart()->save($cart);
+        return $user;
     }
 }
 
